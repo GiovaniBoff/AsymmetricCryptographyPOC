@@ -1,8 +1,9 @@
 import express from 'express';
 import routes from './routes';
-
+import 'dotenv/config'
 import './database';
 
+process.env
 class App {
   constructor() {
     this.server = express();
