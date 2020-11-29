@@ -31,17 +31,18 @@ class UserController {
         return res.status(400).json({ error: 'User already exists' });
       }
     }
+    try {
+      const checkedPassword = await user.checkPassword(oldPassword);
+      if (oldPassword && !checkedPassword) {
+        return res.status(401).json({ error: 'Password does not match' });
+      }
+      const { name } = await user.update(req.body);
+      return res.status(200).json({ name, email });
 
-    const checkedPassword = await user.checkPassword(oldPassword);
-
-    if (oldPassword && !(checkedPassword)) {
-      return res.status(401).json({ error: 'Password does not match' });
+    } catch (er) {
+      return res.status(401).json({ er });
     }
 
-    const { id, name } = await user.update(req.body);
-
-
-    return res.status(200).json({ name, email });
   }
 }
 
