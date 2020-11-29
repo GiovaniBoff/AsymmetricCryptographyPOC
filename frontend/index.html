@@ -8,25 +8,38 @@
     <link href="./assets/css/signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-    <form class="form-signin" onsubmit="javascript:void(0)" >
+    <form id="form-login" class="form-signin" onsubmit="javascript:void(0)" >
         <img class="mb-4" src="./assets/images/logo_vertical.png" alt="">
         <h1 class="h3 mb-3 font-weight-normal">Entrar com login</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Endereço de Email" required autofocus>
+        <input name="email" class="form-control" type="email" placeholder="Endereço de Email" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+        <input name="password" class="form-control" type="password" placeholder="Senha" required>
         <div class="checkbox mb-3">
           <label>
             <input type="checkbox" value="remember-me"> Lembrar login
           </label>
         </div>
-        <button id="form-btn-submit" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <button id="form-btn-submit-login" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         <div class="assign-container">
             Não possui cadastro? Inscreva-se já.
-            <button class="btn btn-lg btn-success btn-block">Criar Cadastro</button>
+            <button id="create-acc-btn" class="btn btn-lg btn-success btn-block"type="button" >Criar Cadastro</button>
         </div>
         <p class="mt-5 mb-3 text-muted">&copy;2020</p>
       </form>
+      <div class="modal-create-acc toggle">
+        <form id="form-create-acc" class="modal-wrapper">
+          <span>X</span>
+          <h2 class="h3 mb-3 font-weight-normal">Cadastrar Usuário</h1>
+          <label for="inputName" class="sr-only">Nome</label>
+          <input name="nome" class="form-control" type="text" placeholder="Seu nome" required autofocus>
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input name="email" class="form-control" type="email" placeholder="Endereço de Email" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input name="password" class="form-control" type="password" placeholder="Senha" required>
+          <button id="form-btn-submit" class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+        </form>
+      </div>
 </body>
 <script type="text/javascript" src="./assets/js/scripts.js"></script>
 </html>
