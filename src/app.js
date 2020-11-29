@@ -1,9 +1,9 @@
 import express from 'express';
 import routes from './routes';
-import 'dotenv/config'
+import cors from 'cors';
+import 'dotenv/config';
 import './database';
 
-process.env
 class App {
   constructor() {
     this.server = express();
@@ -13,6 +13,7 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
+    this.server.use(cors());
   }
 
   routes() {
