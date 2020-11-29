@@ -1,5 +1,11 @@
 .navbar-nav{
+    width: 100%;
+    justify-content:end;
     align-items: center;
+}
+
+.dropdown-menu{
+    left: -68px;
 }
 
 .navbar__brand img{
