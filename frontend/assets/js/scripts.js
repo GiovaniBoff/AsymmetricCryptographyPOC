@@ -1,18 +1,17 @@
 const base_url = "http://localhost:3333"
 
-const form = document.getElementById("form");
-const submitBtn = document.getElementById("form-btn-submit");
+const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
 
-submitBtn.addEventListener('click', async () => {
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     let email = inputEmail.value;
     let password = inputPassword.value;
     let data = {
         email,
         password
     }
-
 
     try {
         const req = await fetch(`${base_url}/session`, {
@@ -21,9 +20,15 @@ submitBtn.addEventListener('click', async () => {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((res) => res.json());
+        });
 
-        const { token } = req;
+        if (!req.ok) {
+            throw req;
+        }
+        
+        response = await req.json();
+        console.log(response);
+        const { token } = response;
         sessionStorage.setItem('token', token);
         window.location = "/home.html"
     } catch (error) {
