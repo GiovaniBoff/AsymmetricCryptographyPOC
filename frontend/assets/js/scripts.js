@@ -5,7 +5,7 @@ const submitBtn = document.getElementById("form-btn-submit");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
 
-submitBtn.addEventListener('click', () =>{
+submitBtn.addEventListener('click', async () => {
     let email = inputEmail.value;
     let password = inputPassword.value;
     let data = {
@@ -13,15 +13,20 @@ submitBtn.addEventListener('click', () =>{
         password
     }
 
-    console.log("####\n", email, password, "\n####");
 
-    fetch(`${base_url}/session`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then((res) => res.json())
-    .then((response) => console.log(response)).catch(console.error)
+    try {
+        const req = await fetch(`${base_url}/session`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then((res) => res.json());
+
+        const { token } = req;
+        sessionStorage.setItem('token', token);
+        window.location = "/home.html"
+    } catch (error) {
+        console.error(error)
+    }
 })
