@@ -1,0 +1,13 @@
+.navbar-nav{
+    align-items: center;
+}
+
+.navbar__brand img{
+    height: 50px;
+}
+.user__log{
+    background-color: aqua;
+    border-radius: 100%;
+    padding: 10px;
+    height: 50px;
+}
