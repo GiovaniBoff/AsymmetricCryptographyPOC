@@ -3,18 +3,31 @@
 ## Backend
 Pre-requisites
 
-docker
-`sudo apt install docker &&  apt install docker-compose` 
+### Docker and Docker compose
+- docker [Docker installation docs](https://docs.docker.com/get-docker/)
+- docker-compose [docker compose installation](https://docs.docker.com/compose/install/)
 
 To Up the docker 
-`sudo systemctl start docker` 
-`sudo docker-compose up` 
+
+`sudo docker-compose up -d`
+ 
+If the above command do not run the docker, try: `sudo systemctl start docker`
+
+### Install the dependencies
+
+`yarn` or `npm install`
+
+### Run the server
 
 Sequelize migration
-`yarn migration:run`
+
+`yarn migration:run` 
+or 
+`npm run migration:run`
 
 To run the server
-`yarn dev`
+
+`yarn dev` or `npm run dev`
 
 ## Database config
 <table>
