@@ -35,3 +35,42 @@ form.addEventListener('submit', async (e) => {
         console.error(error)
     }
 })
+
+formModal.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let name = inputNameRegister.value;
+    let email = inputEmailRegister.value;
+    let password = inputPasswordRegister.value;
+    let data = {
+        name,
+        email,
+        password
+    }
+
+
+    try {
+        const req = await fetch(`${base_url}/users`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!req.ok) {
+            throw req;
+        }
+        
+        response = await req.json();
+        console.log(response);
+        window.location = "./home.html"
+    } catch (error) {
+        error.json().then((body) => {
+            if(body.error === 'User already exists'){
+                const errorDiv = document.querySelector('.errorMessage');
+                errorDiv.classList.add('visible');
+            }             
+        });
+    }
+})
+
