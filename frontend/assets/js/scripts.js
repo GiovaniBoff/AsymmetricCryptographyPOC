@@ -1,8 +1,12 @@
 const base_url = "http://localhost:3333"
-
-const form = document.querySelector(".form-signin");
+const form = document.querySelector("#form-signIn");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
+const formModal = document.querySelector("#form-modal");
+const inputNameRegister = document.getElementById("inputNameRegister");
+const inputEmailRegister = document.getElementById("inputEmailRegister");
+const inputPasswordRegister = document.getElementById("inputPasswordRegister");
+
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
