@@ -1,5 +1,4 @@
-const base_url = "http://localhost:3333"
-
+import { base_url } from './env.js';
 const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
@@ -26,8 +25,7 @@ form.addEventListener('submit', async (e) => {
             throw req;
         }
         
-        response = await req.json();
-        console.log(response);
+        const response = await req.json();
         const { token } = response;
         sessionStorage.setItem('token', token);
         window.location = "/home.html"
