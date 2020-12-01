@@ -1,7 +1,7 @@
 import { getPublicKey } from '../api/getPublicKey.js';
 import { base_url } from '../env.js';
 
-export const encryptMessage = async (message = 'bananas') => {
+export const encryptMessage = async (message = 'maconha') => {
 	let enc = new TextEncoder();
 	let encoded = enc.encode(message);
 	const publicKey = (await getPublicKey()).public_key;
@@ -14,6 +14,15 @@ export const encryptMessage = async (message = 'bananas') => {
 		}
 		return buf;
 	}
+	const arrayBufferToBase64 = (buffer) => {
+		var binary = '';
+		var bytes = new Uint8Array(buffer);
+		var len = bytes.byteLength;
+		for (var i = 0; i < len; i++) {
+			binary += String.fromCharCode(bytes[i]);
+		}
+		return window.btoa(binary);
+	}
 
 	const importKeyMethod = async () => {
 		const pemHeader = "-----BEGIN PUBLIC KEY-----";
@@ -22,12 +31,12 @@ export const encryptMessage = async (message = 'bananas') => {
 		const clearPublicKey = window.atob(pemContents);
 		const binaryDer = str2ab(clearPublicKey);
 		return await window.crypto.subtle.importKey(
-			'pkcs8',
+			'spki',
 			binaryDer,
 			{
 				name: "RSA-OAEP",
 				modulusLength: 1024,
-				hash: "SHA-256",
+				hash: "SHA-1",
 			},
 			true,
 			['encrypt']
@@ -35,7 +44,6 @@ export const encryptMessage = async (message = 'bananas') => {
 	}
 	const encryptMessage = async () => {
 		const importedKey = await importKeyMethod();
-
 		return window.crypto.subtle.encrypt(
 			{
 				name: "RSA-OAEP",
@@ -47,6 +55,7 @@ export const encryptMessage = async (message = 'bananas') => {
 
 	try {
 		const encryptedMessage = await encryptMessage();
+		console.log(arrayBufferToBase64(encryptedMessage));
 		const jwtToken = sessionStorage.getItem('token');
 		fetch(`${base_url}/teste`, {
 			method: 'POST',
@@ -56,7 +65,7 @@ export const encryptMessage = async (message = 'bananas') => {
 			},
 			body: JSON.stringify({
 				email: 'bb@bb.com',
-				password: window.btoa(encryptedMessage)
+				password: arrayBufferToBase64(encryptedMessage)
 			})
 		})
 	} catch (error) {

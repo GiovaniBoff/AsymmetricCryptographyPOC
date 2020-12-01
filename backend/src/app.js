@@ -30,8 +30,8 @@ class App {
       return;
     }
     const key = new NodeRSA({ b: 1024 });
-    const private_key = key.exportKey('pkcs8-private');
-    const public_key = key.exportKey('pkcs8-public');
+    const private_key = key.exportKey('private');
+    const public_key = key.exportKey('public', 'spki');
     const rsaPublic = {
       private_key,
       public_key,

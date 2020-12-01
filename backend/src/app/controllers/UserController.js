@@ -22,7 +22,8 @@ class UserController {
 
   async index(req, res) {
     // const user = await User.findByPk(req.userId);
-    return res.send(200);
+
+    return res.status(200).json({ bla: 'bla' });
   }
 
   async update(req, res) {

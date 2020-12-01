@@ -11,6 +11,7 @@ export default async (req, res, next) => {
   try {
     const key_private = new NodeRSA(rsaPrivateKey.private_key);
     const decryptedPass = key_private.decrypt(password, 'utf8');
+    console.log(decryptedPass);
     req.decPass = decryptedPass;
     return next();
   } catch (error) {
