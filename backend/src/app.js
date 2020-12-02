@@ -26,9 +26,9 @@ class App {
 
   createPrivateKey() {
     const fileName = 'isNotRsaPrivateKey.json';
-    // if (fs.existsSync(path.resolve(__dirname, 'config', fileName))) {
-    //   return;
-    // }
+    if (fs.existsSync(path.resolve(__dirname, 'config', fileName))) {
+      return;
+    }
     const key = new NodeRSA({ b: 1024 });
     const private_key = key.exportKey('private');
     const public_key = key.exportKey('public', 'spki');
