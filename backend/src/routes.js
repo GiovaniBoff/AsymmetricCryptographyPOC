@@ -10,7 +10,7 @@ const routes = new Router();
 
 // Rota de cadastro de usuario
 routes.post('/users', UserController.store);
-// Rota para criação do toke de sessão
+// Rota para criação do token de sessão
 routes.post('/session', SessionController.store);
 // Middleware responsável por validar o token de sessão
 routes.use(authMiddleware);
@@ -23,6 +23,5 @@ routes.use(authRSA);
 routes.use(authPassword);
 // Rota para atualizar os dados do usuario
 routes.put('/users', UserController.update);
-
 
 export default routes;
