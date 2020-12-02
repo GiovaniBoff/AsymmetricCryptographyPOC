@@ -1,4 +1,5 @@
-import { encryptMessage } from './helpers/encrypt.js';
+import './services/protectPage.js';
+import { encryptMessage } from './services/encrypt.js';
 
 import { base_url } from './env.js';
 
