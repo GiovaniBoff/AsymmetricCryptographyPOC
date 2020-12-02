@@ -1,4 +1,5 @@
 import { base_url } from './env.js';
+import { reqToLog }  from './reqToLog.js'
 const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
@@ -18,22 +19,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     try {
-        const req = await fetch(`${base_url}/session`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (!req.ok) {
-            throw req;
-        }
-        
-        const response = await req.json();
-        const { token } = response;
-        sessionStorage.setItem('token', token);
-        window.location = "/home.html"
+        reqToLog(data);
     } catch (error) {
         console.error(error)
     }
@@ -46,8 +32,8 @@ formModal.addEventListener('submit', async (e) => {
     let password = inputPasswordRegister.value;
     let data = {
         name,
-        email,
-        password
+        password,
+        email
     }
 
 
@@ -60,13 +46,17 @@ formModal.addEventListener('submit', async (e) => {
             }
         });
 
+        console.log(data);
+
         if (!req.ok) {
             throw req;
         }
         
-        response = await req.json();
-        console.log(response);
-        window.location = "./home.html"
+        reqToLog({
+            email,
+            password
+        });
+        
     } catch (error) {
         error.json().then((body) => {
             if(body.error === 'User already exists'){
