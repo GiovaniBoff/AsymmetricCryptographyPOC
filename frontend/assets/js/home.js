@@ -4,9 +4,6 @@ import { base_url } from './env.js';
 
 const userName = document.querySelector('.user-name');
 
-// const button = document.querySelector('.get-things');
-
-
 window.addEventListener('load', async () => {
     const sessionToken = sessionStorage.getItem('token');
 
@@ -22,9 +19,3 @@ window.addEventListener('load', async () => {
 
     userName.innerHTML = name
 })
-
-
-
-// button.addEventListener('click', () => {
-//     encryptMessage();
-// });
