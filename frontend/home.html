@@ -30,7 +30,6 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -45,7 +44,8 @@
             <img class="user__log" src="assets/images/user.webp" alt="">
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Mudar senha</a>
+            <a class="dropdown-item" href="#" data-toggle="modal"
+            data-target="#modal-register">Mudar senha</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Logout</a>
           </div>
@@ -58,7 +58,34 @@
     <h1 class="text-center">Parabens voce Logou com sucesso!</h1>
   </div>
 
-  <script type="text/javascript" src="./js/scripts.js"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="modal-register" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Cadastra-se</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="form-modal" class="form-chang-pswd" onsubmit="javascript:void(0)">
+            <label for="inputPasswordRegister" class="sr-only">Password</label>
+            <input type="password" id="inputPasswordRegister" class="form-control" placeholder="Digite sua nova senha" required>
+            <label for="inputPasswordReview" class="sr-only">Re-enter Password</label>
+            <input type="password" id="inputPasswordReview" class="form-control" placeholder="Redigite sua nova senha" required>
+            <button type="submit" id="modal-btn-submit" class="btn btn-lg btn-success btn-block">Enviar</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+  
   <script>
     const elUserName = document.querySelector('.user-name');
     const usrName = "Giovani Boff"
