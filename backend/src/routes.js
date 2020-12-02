@@ -10,10 +10,11 @@ const routes = new Router();
 
 // Rota de cadastro de usuario
 routes.post('/users', UserController.store);
-// Rota para criação do toke de sessão
+// Rota para criação do token de sessão
 routes.post('/session', SessionController.store);
 // Middleware responsável por validar o token de sessão
 routes.use(authMiddleware);
+routes.get('/users', UserController.index);
 // Rota para a busca da public key para a encriptaçao
 routes.get('/getPublicKey', UserController.getPublicKey);
 // Middleware responsável por realizar a desincriptação

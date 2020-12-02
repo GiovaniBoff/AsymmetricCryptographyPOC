@@ -1,8 +1,22 @@
 import './services/protectPage.js';
 import { encryptMessage } from './services/encrypt.js';
 
-const button = document.querySelector('.get-things');
+import { base_url } from './env.js';
 
-button.addEventListener('click', () => {
-    encryptMessage();
-});
+const userName = document.querySelector('.user-name');
+
+window.addEventListener('load', async () => {
+    const sessionToken = sessionStorage.getItem('token');
+
+    const req = await fetch(`${base_url}/users`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${sessionToken}`
+        }
+    });
+
+    const { name } = await req.json()
+
+    userName.innerHTML = name
+})
