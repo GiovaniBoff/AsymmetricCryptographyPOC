@@ -1,7 +1,30 @@
 import { encryptMessage } from './helpers/encrypt.js';
 
-const button = document.querySelector('.get-things');
+import { base_url } from './env.js';
 
-button.addEventListener('click', () => {
-    encryptMessage();
-});
+const userName = document.querySelector('.user-name');
+
+// const button = document.querySelector('.get-things');
+
+
+window.addEventListener('load', async () => {
+    const sessionToken = sessionStorage.getItem('token');
+
+    const req = await fetch(`${base_url}/users`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${sessionToken}`
+        }
+    });
+
+    const { name } = await req.json()
+
+    userName.innerHTML = name
+})
+
+
+
+// button.addEventListener('click', () => {
+//     encryptMessage();
+// });

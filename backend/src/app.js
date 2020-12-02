@@ -40,7 +40,9 @@ class App {
       path.resolve(__dirname, 'config', fileName),
       JSON.stringify(rsaPublic),
       function (err) {
-        if (err) return console.log(err);
+        if (err) {
+          return err;
+        }
       }
     );
   }
