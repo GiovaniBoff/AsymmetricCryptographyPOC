@@ -1,5 +1,6 @@
 import { base_url } from './env.js';
 import { reqToLog }  from './reqToLog.js'
+
 const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
@@ -13,6 +14,7 @@ form.addEventListener('submit',(e) => {
     e.preventDefault();
     let email = inputEmail.value;
     let password = inputPassword.value;
+    
     let data = {
         email,
         password
@@ -51,12 +53,13 @@ formModal.addEventListener('submit', async (e) => {
         if (!req.ok) {
             throw req;
         }
+      
+        const response = await req.json();
+        const { token } = response;
         
-        reqToLog({
-            email,
-            password
-        });
-        
+        sessionStorage.setItem('token', token);
+        window.location = "/home.html"
+
     } catch (error) {
         error.json().then((body) => {
             if(body.error === 'User already exists'){
