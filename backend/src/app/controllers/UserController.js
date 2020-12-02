@@ -1,8 +1,5 @@
 import User from '../models/User';
 import rsaPrivateKey from '../../config/isNotRsaPrivateKey.json';
-
-const NodeRSA = require('node-rsa');
-
 class UserController {
   async store(req, res) {
     const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -21,9 +18,12 @@ class UserController {
   }
 
   async index(req, res) {
-    // const user = await User.findByPk(req.userId);
-
-    return res.status(200).json({ bla: 'bla' });
+    try {
+      const { name, email } = await User.findByPk(req.userId);
+      return res.status(200).json({ name, email });
+    } catch (error) {
+      return res.status(401).json({ error });
+    }
   }
 
   async update(req, res) {
