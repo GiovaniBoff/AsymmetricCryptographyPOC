@@ -1,11 +1,11 @@
 import express from 'express';
-import routes from './routes';
 import cors from 'cors';
 import 'dotenv/config';
 import fs from 'fs';
 import './database';
 import NodeRSA from 'node-rsa';
 import path from 'path';
+import routes from './routes';
 
 class App {
   constructor() {
@@ -40,7 +40,9 @@ class App {
       path.resolve(__dirname, 'config', fileName),
       JSON.stringify(rsaPublic),
       function (err) {
-        if (err) return console.log(err);
+        if (err) {
+          return err;
+        }
       }
     );
   }
