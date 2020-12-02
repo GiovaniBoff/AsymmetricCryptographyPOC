@@ -9,7 +9,7 @@ const inputEmailRegister = document.getElementById("inputEmailRegister");
 const inputPasswordRegister = document.getElementById("inputPasswordRegister");
 
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener('submit',(e) => {
     e.preventDefault();
     let email = inputEmail.value;
     let password = inputPassword.value;
