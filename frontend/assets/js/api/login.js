@@ -1,5 +1,5 @@
-import { base_url } from './env.js';
-export const reqToLog = async (data) =>{
+import { base_url } from '../env.js';
+export const login = async (data) => {
         console.log('teste interno');
         const req = await fetch(`${base_url}/session`, {
             method: 'POST',
@@ -9,11 +9,11 @@ export const reqToLog = async (data) =>{
             }
         });
         
+        const response = await req.json();
         if (!req.ok) {
-            throw req;
+            throw response;
         }
         
-        const response = await req.json();
         const { token } = response;
         sessionStorage.setItem('token', token);
         window.location = "/home.html"
