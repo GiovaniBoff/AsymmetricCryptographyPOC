@@ -11,15 +11,13 @@ export const registerUser = async (data) => {
         }
     });
 
-    const response = await req.json();
     if (!req.ok) {
-        throw response;
+        const errorResponse = await req.json();
+        throw errorResponse;
     }
     
-    const bodyData = {
-        ...data
-    }
-
-    delete bodyData.name;
-    login(bodyData);
+    await login({
+        email: data.email,
+        password: data.password,
+    });
 }

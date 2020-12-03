@@ -1,7 +1,7 @@
 import { getPublicKey } from '../api/getPublicKey.js';
 import { base_url } from '../env.js';
 
-export const encryptMessage = async (message = 'maconha') => {
+export const encryptMessage = async (message) => {
 	let enc = new TextEncoder();
 	let encoded = enc.encode(message);
 	const publicKey = (await getPublicKey()).public_key;
@@ -53,22 +53,5 @@ export const encryptMessage = async (message = 'maconha') => {
 		);
 	}
 
-	try {
-		const encryptedMessage = await encryptMessage();
-		console.log(arrayBufferToBase64(encryptedMessage));
-		const jwtToken = sessionStorage.getItem('token');
-		fetch(`${base_url}/teste`, {
-			method: 'POST',
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `bearer ${jwtToken}`
-			},
-			body: JSON.stringify({
-				email: 'bb@bb.com',
-				password: arrayBufferToBase64(encryptedMessage)
-			})
-		})
-	} catch (error) {
-		console.log('Deu merda', error);
-	}
+	return arrayBufferToBase64(await encryptMessage())
 }
