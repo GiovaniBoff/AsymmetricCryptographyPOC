@@ -1,20 +1,23 @@
 import User from '../models/User';
 import rsaPrivateKey from '../../config/isNotRsaPrivateKey.json';
+import decrypt from '../service/decrypt';
+
 class UserController {
   async store(req, res) {
     const userExists = await User.findOne({ where: { email: req.body.email } });
 
+    const { password, email, name } = req.body;
+    const decryptedPassword = decrypt(password);
     if (userExists) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    const { id, name, email, provider } = await User.create(req.body);
-    return res.json({
-      id,
-      name,
+    await User.create({
       email,
-      provider,
+      name,
+      password: decryptedPassword,
     });
+    return res.status(201).send();
   }
 
   async index(req, res) {
@@ -41,8 +44,9 @@ class UserController {
       }
     }
     try {
-      const checkedPassword = await user.checkPassword(oldPassword);
-      if (oldPassword && !checkedPassword) {
+      const decryptedPassword = await decrypt(oldPassword);
+      const checkedPassword = await user.checkPassword(decryptedPassword);
+      if (decryptedPassword && !checkedPassword) {
         return res.status(401).json({ error: 'Password does not match' });
       }
       const { name } = await user.update(req.body);

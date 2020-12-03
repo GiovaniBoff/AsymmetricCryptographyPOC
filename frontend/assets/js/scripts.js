@@ -1,5 +1,6 @@
 import { login }  from './api/login.js';
 import { registerUser } from './api/registeUser.js';
+import { encryptMessage } from './services/encrypt.js';
 
 const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
@@ -13,8 +14,8 @@ const inputPasswordRegister = document.getElementById("inputPasswordRegister");
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     let email = inputEmail.value;
-    let password = inputPassword.value;
-    
+    let password =inputPassword.value;
+    password = await encryptMessage(password);
     let data = {
         email,
         password
@@ -22,7 +23,7 @@ form.addEventListener('submit', async (e) => {
 
     try {
         await login(data);
-    } catch (error) {
+    } catch ({error}) {
         console.error(error)
     }
 })
@@ -31,7 +32,7 @@ formRegister.addEventListener('submit', async (e) => {
     e.preventDefault();
     let name = inputNameRegister.value;
     let email = inputEmailRegister.value;
-    let password = inputPasswordRegister.value;
+    let password = await encryptMessage(inputPasswordRegister.value);
     let data = {
         name,
         password,
@@ -41,9 +42,11 @@ formRegister.addEventListener('submit', async (e) => {
     try {
         await registerUser(data);
     } catch (error) {
-        if(body.error === 'User already exists'){
+        if(error.error === 'User already exists'){
             const errorDiv = document.querySelector('.errorMessage');
             errorDiv.classList.add('visible');
+        } else {
+            console.log(error);
         }
     } 
 })
