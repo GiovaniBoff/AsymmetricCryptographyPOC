@@ -1,16 +1,16 @@
-import { base_url } from './env.js';
-import { reqToLog }  from './reqToLog.js'
+import { login }  from './api/login.js';
+import { registerUser } from './api/registeUser.js';
 
 const form = document.querySelector(".form-signin");
 const inputEmail = document.getElementById("inputEmail");
 const inputPassword = document.getElementById("inputPassword");
-const formModal = document.querySelector("#form-modal");
+const formRegister = document.querySelector("#form-modal");
 const inputNameRegister = document.getElementById("inputNameRegister");
 const inputEmailRegister = document.getElementById("inputEmailRegister");
 const inputPasswordRegister = document.getElementById("inputPasswordRegister");
 
 
-form.addEventListener('submit',(e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     let email = inputEmail.value;
     let password = inputPassword.value;
@@ -21,13 +21,13 @@ form.addEventListener('submit',(e) => {
     }
 
     try {
-        reqToLog(data);
+        await login(data);
     } catch (error) {
         console.error(error)
     }
 })
 
-formModal.addEventListener('submit', async (e) => {
+formRegister.addEventListener('submit', async (e) => {
     e.preventDefault();
     let name = inputNameRegister.value;
     let email = inputEmailRegister.value;
@@ -38,35 +38,13 @@ formModal.addEventListener('submit', async (e) => {
         email
     }
 
-
     try {
-        const req = await fetch(`${base_url}/users`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(data);
-
-        if (!req.ok) {
-            throw req;
-        }
-      
-        const response = await req.json();
-        const { token } = response;
-        
-        sessionStorage.setItem('token', token);
-        window.location = "/home.html"
-
+        await registerUser(data);
     } catch (error) {
-        error.json().then((body) => {
-            if(body.error === 'User already exists'){
-                const errorDiv = document.querySelector('.errorMessage');
-                errorDiv.classList.add('visible');
-            }             
-        });
-    }
+        if(body.error === 'User already exists'){
+            const errorDiv = document.querySelector('.errorMessage');
+            errorDiv.classList.add('visible');
+        }
+    } 
 })
 
