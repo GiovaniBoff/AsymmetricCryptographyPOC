@@ -1,4 +1,4 @@
-# goBarberApi 
+# AssimetricCryptografyPOC
 
 ## Backend
 Pre-requisites
@@ -54,3 +54,17 @@ To run the server
 </table>
 
 ## Frontend
+
+Pre-Requisites
+
+### Install the dependencies
+
+`yarn` or `npm install`
+
+To run the server
+
+`yarn start` or `npm start`
+
+## Video about the project
+
+[criptografia na web - javascript - exemplo prático](https://www.youtube.com/watch?v=jBFH-t4cmuA)
